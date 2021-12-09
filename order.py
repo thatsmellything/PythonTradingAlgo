@@ -30,9 +30,11 @@ def get_orders():
 
     return json.loads(r.content)
 
-response = create_order("AAPL", 100, "buy", "market", "gtc")
-response = create_order("MSFT", 1000, "buy", "market", "gtc")
+order = create_order("AAPL", 100, "buy", "market", "day")
+print(order)
+#response = create_order("AAPL", 100, "buy", "market", "gtc")
+#response = create_order("MSFT", 1000, "buy", "market", "gtc")
 
 orders = get_orders()
-print(response)
+#print(response)
 print(orders)
