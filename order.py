@@ -4,7 +4,7 @@ from config import *
 BASE_URL = "https://paper-api.alpaca.markets"
 ACCOUNT_URL = "{}/v2/account".format(BASE_URL)
 ORDERS_URL = "{}/v2/orders".format(BASE_URL)
-HEADERS = {'APCA-API-KEY-ID': API_KEY, 'APCA-API-SECRET-KEY': SECRET_KEY}
+HEADERS = {'APCA-API-KEY-ID': API_KEY_ID, 'APCA-API-SECRET-KEY': SECRET_KEY}
 
 def get_account():
     r = requests.get(ACCOUNT_URL, headers=HEADERS)
@@ -34,5 +34,5 @@ response = create_order("AAPL", 100, "buy", "market", "gtc")
 response = create_order("MSFT", 1000, "buy", "market", "gtc")
 
 orders = get_orders()
-
+print(response)
 print(orders)
