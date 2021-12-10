@@ -1,1 +1,2 @@
-btalib
+bta-lib     https://btalib.backtrader.com/
+pandas
