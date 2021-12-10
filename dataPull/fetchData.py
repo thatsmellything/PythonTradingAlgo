@@ -17,7 +17,7 @@ def pullData(timeframe, symbols, limit):
 
 
     for symbol in data:
-        filename = 'stockdata/{}.txt'.format(symbol)
+        filename = '../data/{}.txt'.format(symbol)
         f = open(filename, 'w+')
     #print(data['symbol'])
         f.write('Date,Open,High,Low,Close,Volume,OpenInterest\n')
@@ -29,4 +29,5 @@ def pullData(timeframe, symbols, limit):
             f.write(line)
     #f.write(data[symbol])
 
+#pullData('1D','TSLA','100')
 
