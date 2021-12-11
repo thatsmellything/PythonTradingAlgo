@@ -21,7 +21,7 @@ def getindicators(symbol):
     df['rsi'] = rsi.df['rsi']
     df.to_csv('../data/processed/{}'.format(symbol) + '.csv', index=True)
     return df
-#print(getindicators('btalibtest'))
+print(getindicators('btalibtest'))
 
 def getlastentry(filename):
     with open("../data/processed/" + filename + ".csv", 'r') as file:
