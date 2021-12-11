@@ -1,7 +1,7 @@
 from dataPull.fetchData import pullData
 from indicators import *
 from dataPull import *
-from indicators.getindicators import getindicators, getlastentry
+from indicators.formatdata import getindicators, getlastentry
 
 
 def pulldataandprocess(timeframe, symbol, limit):
@@ -35,4 +35,21 @@ def getrsi(values):
 def getsignal(values):
     date, openVal, highVal, lowVal, closeVal, volume, openInterest, macd, signal, histogram, rsi  = values.split(',')
     #print(signal)
+    return signal
+
+
+###THESE PULL THE DATA AND PROCESS IT ALL AT ONCE###
+def returnLatestMacd(timeframe, symbol, limit):
+    macd = getmacd(pulldataandprocess(timeframe, symbol, limit))
+    print(macd)
+    return macd
+
+def returnLatestRsi(timeframe, symbol, limit):
+    rsi = getrsi(pulldataandprocess(timeframe, symbol, limit))
+    print(rsi)
+    return rsi
+
+def returnLatestSignal(timeframe, symbol, limit):
+    signal = getsignal(pulldataandprocess(timeframe, symbol, limit))
+    print(signal)
     return signal
