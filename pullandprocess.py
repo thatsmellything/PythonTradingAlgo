@@ -41,15 +41,15 @@ def getsignal(values):
 ###THESE PULL THE DATA AND PROCESS IT ALL AT ONCE###
 def returnLatestMacd(timeframe, symbol, limit):
     macd = getmacd(pulldataandprocess(timeframe, symbol, limit))
-    print(macd)
+    #print(macd)
     return macd
 
 def returnLatestRsi(timeframe, symbol, limit):
     rsi = getrsi(pulldataandprocess(timeframe, symbol, limit))
-    print(rsi)
+    #print(rsi)
     return rsi
 
 def returnLatestSignal(timeframe, symbol, limit):
     signal = getsignal(pulldataandprocess(timeframe, symbol, limit))
-    print(signal)
+    #print(signal)
     return signal
