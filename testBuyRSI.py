@@ -56,4 +56,4 @@ def makelimitorderiflowrsi(timeframe, symbol, datalimit, amount, lowerthanrsi):
         print("buying {} of {}, type {} {} {} at {}".format(amount, symbol, 'limit', 'buy', 'opg', price))
     else:
         print("not buying any stocks")
-makelimitorderiflowrsi('1D', 'CLSK', '100', '100', '35')
+#makelimitorderiflowrsi('1D', 'CLSK', '100', '100', '35')
