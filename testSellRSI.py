@@ -18,6 +18,9 @@ def create_order(symbol, qty, side, type, time_in_force):
         "type": type,
         "time_in_force": time_in_force
     }
+    r = requests.post(ORDERS_URL, json=data, headers=HEADERS)
+
+    return json.loads(r.content)
 
 def makeorderiflowrsi(timeframe, symbol, datalimit, amount, lowerthanrsi):
     if float(pullandprocess.returnLatestRsi(timeframe, symbol, datalimit).strip("\n")) < float(lowerthanrsi):
