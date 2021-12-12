@@ -10,6 +10,7 @@ api = tradeapi.REST(api_key, api_secret, base_url, api_version='v2')
 
 # Get our account information.
 account = api.get_account()
+#print(account)
 
 # Check if our account is restricted from trading.
 if account.trading_blocked:

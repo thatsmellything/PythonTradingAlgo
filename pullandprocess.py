@@ -37,6 +37,12 @@ def getsignal(values):
     #print(signal)
     return signal
 
+##GET CLOSING VAL###
+def getclosingval(values):
+    date, openVal, highVal, lowVal, closeVal, volume, openInterest, macd, signal, histogram, rsi  = values.split(',')
+    #print(signal)
+    return closeVal
+
 
 ###THESE PULL THE DATA AND PROCESS IT ALL AT ONCE###
 def returnLatestMacd(timeframe, symbol, limit):
@@ -53,3 +59,8 @@ def returnLatestSignal(timeframe, symbol, limit):
     signal = getsignal(pulldataandprocess(timeframe, symbol, limit))
     #print(signal)
     return signal
+
+def returnClosingVal(timeframe, symbol, limit):
+    closingval = getclosingval(pulldataandprocess(timeframe, symbol, limit))
+    #print(signal)
+    return closingval

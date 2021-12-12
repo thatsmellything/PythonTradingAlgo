@@ -21,9 +21,9 @@ def create_order(symbol, qty, side, type, time_in_force):
 
 def makeorderiflowrsi(timeframe, symbol, datalimit, amount, lowerthanrsi):
     if float(pullandprocess.returnLatestRsi(timeframe, symbol, datalimit).strip("\n")) < float(lowerthanrsi):
-        create_order(symbol, amount, 'buy', 'market', 'gtc')
-        print("buying {} of {}, type {} {} {}".format(amount, symbol, 'market', 'buy', 'gtc'))
+        create_order(symbol, amount, 'sell', 'market', 'gtc')
+        print("buying {} of {}, type {} {} {}".format(amount, symbol, 'market', 'sell', 'gtc'))
     else:
         print("not buying any stocks")
 
-makeorderiflowrsi('1D', 'CLSK', '100', '100', '75')
+makeorderiflowrsi('1D', 'CLSK', '100', '100', '50')
