@@ -11,17 +11,6 @@ HEADERS = {'APCA-API-KEY-ID': API_KEY_ID, 'APCA-API-SECRET-KEY': SECRET_KEY}
 
 
 
-def create_order_market(symbol, qty, side, type, time_in_force):
-    data = {
-        "symbol": symbol,
-        "qty": qty,
-        "side": side,
-        "type": type,
-        "time_in_force": time_in_force
-    }
-    r = requests.post(ORDERS_URL, json=data, headers=HEADERS)
-
-    return json.loads(r.content)
 
 def create_order_limit(symbol, qty, side, type, time_in_force,limit_price):
     data = {
@@ -38,12 +27,7 @@ def create_order_limit(symbol, qty, side, type, time_in_force,limit_price):
     
 
 
-def makemarketorderiflowrsi(timeframe, symbol, datalimit, amount, lowerthanrsi):
-    if float(pullandprocess.returnLatestRsi(timeframe, symbol, datalimit).strip("\n")) > float(lowerthanrsi):
-        create_order_market(symbol, amount, 'sell', 'market', 'gtc')
-        print("Selling {} of {}, type {} {} {}".format(amount, symbol, 'market', 'sell', 'gtc'))
-    else:
-        print("not selling buying any stocks")
+
     
 
 #makemarketorderiflowrsi('1D', 'CLSK', '1000', '100', '45')
@@ -56,7 +40,7 @@ def makelimitorderiflowrsi(timeframeofdata, symbol, datalimit, amount, lowerthan
         create_order_limit(symbol, amount, 'buy', 'limit', 'gtc', '{}'.format(price))
         print("buying {} of {}, type {} {} {} at {}".format(amount, symbol, 'limit', 'buy', ordergoodfor, price))
         sleep(360)
-        makeLimitOrderIfRSIUp('1min', 'CLSK', '1000', '100', '45', 'day')
+        makeLimitOrderIfRSIUp('1Min', 'CLSK', '1000', '100', '45', 'day')
     else:
         print("not buying any stocks")
 
@@ -82,5 +66,5 @@ def makeLimitOrderIfRSIUp(timeframeofdata, symbol, datalimit, amount, lowerthanr
 while True:
     sleep(60 - time() % 60)
 	# thing to run
-    makelimitorderiflowrsi('1min', 'CLSK', '1000', '100', '35', 'day')
+    makelimitorderiflowrsi('1Min', 'CLSK', '1000', '100', '35', 'day')
 
