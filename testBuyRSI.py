@@ -52,8 +52,8 @@ def makelimitorderiflowrsi(timeframe, symbol, datalimit, amount, lowerthanrsi):
     if float(pullandprocess.returnLatestRsi(timeframe, symbol, datalimit).strip("\n")) < float(lowerthanrsi):
         price = pullandprocess.returnClosingVal(timeframe, symbol, datalimit).strip("\n")
         #print(price)
-        create_order_limit(symbol, amount, 'buy', 'limit', 'opg', '{}'.format(price))
-        print("buying {} of {}, type {} {} {} at {}".format(amount, symbol, 'limit', 'buy', 'opg', price))
+        create_order_limit(symbol, amount, 'buy', 'limit', 'gtc', '{}'.format(price))
+        print("buying {} of {}, type {} {} {} at {}".format(amount, symbol, 'limit', 'buy', 'gtc', price))
     else:
         print("not buying any stocks")
-#makelimitorderiflowrsi('1D', 'CLSK', '100', '100', '35')
+makelimitorderiflowrsi('1D', 'CLSK', '1000', '100', '35')

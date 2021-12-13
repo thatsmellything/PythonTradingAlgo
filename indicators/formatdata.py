@@ -8,7 +8,7 @@ import pandas as pd
 def getindicators(symbol):
 
 
-    df = pd.read_csv("../data/{}.txt".format(symbol), parse_dates=True, index_col='Date')
+    df = pd.read_csv("./data/{}.txt".format(symbol), parse_dates=True, index_col='Date')
 
     macd = btalib.macd(df)
 
@@ -19,12 +19,12 @@ def getindicators(symbol):
     df['signal'] = macd.df['signal']
     df['histogram'] = macd.df['histogram']
     df['rsi'] = rsi.df['rsi']
-    df.to_csv('../data/processed/{}'.format(symbol) + '.csv', index=True)
+    df.to_csv('./data/processed/{}'.format(symbol) + '.csv', index=True)
     return df
 #print(getindicators('btalibtest'))
 
 def getlastentry(filename):
-    with open("../data/processed/" + filename + ".csv", 'r') as file:
+    with open("./data/processed/" + filename + ".csv", 'r') as file:
         data = file.readlines()
     
     lastRow = data[-1]
