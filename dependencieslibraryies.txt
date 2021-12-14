@@ -1,4 +1,4 @@
-pip3 install bta-lib
-pip3 install pandas
-pip3 install alpaca-trade-api
-pip3 install requests
+bta-lib
+pandas
+alpaca-trade-api
+requests
