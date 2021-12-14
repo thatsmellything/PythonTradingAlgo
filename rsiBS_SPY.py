@@ -34,8 +34,10 @@ def create_order_limit(symbol, qty, side, type, time_in_force,limit_price):
 
 
 def makelimitorderiflowrsi(timeframeofdata, symbol, datalimit, amount, lowerthanrsi, ordergoodfor, profitpercentage):
-    print("attempting to buy {} {} stock, and gain at least {} percent".format(amount, symbol, profitpercentage))
-    if float(pullandprocess.returnLatestRsi(timeframeofdata, symbol, datalimit).strip("\n")) < float(lowerthanrsi):
+    rsivalueString = pullandprocess.returnLatestRsi(timeframeofdata, symbol, datalimit).strip("\n")
+    rsivalue = float(rsivalueString)
+    print("attempting to buy {} {} stock, and gain at least {} percent, rsi value is {}".format(amount, symbol, profitpercentage, rsivalueString))
+    if rsivalue < float(lowerthanrsi):
         price = pullandprocess.returnClosingVal(timeframeofdata, symbol, datalimit).strip("\n")
         #print(price)
         create_order_limit(symbol, amount, 'buy', 'limit', 'day', '{}'.format(price))
@@ -77,12 +79,12 @@ def makeLimitOrderIfRSIUp(timeframeofdata, symbol, datalimit, amount, lowerthanr
     sleep(30)
     print("resuming")
     if float(pullandprocess.returnLatestRsi(timeframeofdata, symbol, datalimit).strip("\n")) > float(lowerthanrsi):
-        print("RSI value has been met, selling at yesterdays close price")
+        print("RSI value of {} has been met, selling at yesterdays close price".format(pullandprocess.returnLatestRsi(timeframeofdata, symbol, datalimit).strip("\n")))
         priceAtClose = pullandprocess.returnClosingVal(timeframeofdata, symbol, datalimit).strip("\n")
         create_order_limit(symbol, amount, 'sell', 'limit', 'day', '{}'.format(priceAtClose))
         print("Selling {} of {}, type {} {} {} at {}".format(amount, symbol, 'limit', 'sell', ordergoodfor, priceAtClose))
     else:
-        print("RSI value to sell has not been met, taking 1.6% profit for the day")
+        print("RSI value to sell has not been met, taking {}% profit for the day".format(profitpercentage))
         priceAtClose = pullandprocess.returnClosingVal(timeframeofdata, symbol, datalimit).strip("\n")
         priceToSell = float(priceAtClose) * float(profitpercentage)
         #print(price)
