@@ -2,3 +2,4 @@ bta-lib
 pandas
 alpaca-trade-api
 requests
+opencv-python
