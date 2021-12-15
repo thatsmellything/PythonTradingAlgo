@@ -1,4 +1,4 @@
-from dataPull.fetchData import pullData
+from fetchData import pullData
 from indicators import *
 from dataPull import *
 from indicators.formatdata import getindicators, getlastentry

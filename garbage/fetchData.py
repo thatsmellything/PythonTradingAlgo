@@ -12,7 +12,7 @@ def pullData(timeframe, symbols, limit):
     #print(json.dumps(r.json(), indent=4)) #make it much more readable
     data = r.json()
     for symbol in data:
-        filename = './data/{}.txt'.format(symbol)
+        filename = 'data/{}.txt'.format(symbol)
         f = open(filename, 'w+')
         #print(data['symbol'])
         f.write('Date,Open,High,Low,Close,Volume,OpenInterest\n')
@@ -26,6 +26,6 @@ def pullData(timeframe, symbols, limit):
             f.write(line)
     #f.write(data[symbol])
 
-#pullData('1D','TSLA','100')
-#pullData('1D', 'TR', '100')
+pullData('1D','TSLA','100')
+pullData('1D', 'TR', '100')
 
