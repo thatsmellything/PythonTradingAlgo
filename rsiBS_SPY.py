@@ -57,7 +57,31 @@ def makelimitorderiflowrsi(timeframeofdata, symbol, datalimit, amount, lowerthan
 
 
 def makeLimitOrderIfRSIUp(timeframeofdata, symbol, datalimit, amount, lowerthanrsi, ordergoodfor, profitpercentage):
-    sleep(360)
+    print("waiting 6 more minutes until resuming")
+    sleep(30)
+    print("waiting 5.5 more minutes until resuming")
+    sleep(30)
+    print("waiting 5 more minutes until resuming")
+    sleep(30)
+    print("waiting 4.5 more minutes until resuming")
+    sleep(30)
+    print("waiting 4 more minutes until resuming")
+    sleep(30)
+    print("waiting 3.5 more minutes until resuming")
+    sleep(30)
+    print("waiting 3 more minutes until resuming")
+    sleep(30)
+    print("waiting 2.5 more minutes until resuming")
+    sleep(30)
+    print("waiting 2 more minutes until resuming")
+    sleep(30)
+    print("waiting 1.5 more minutes until resuming")
+    sleep(30)
+    print("waiting 1 more minutes until resuming")
+    sleep(30)
+    print("waiting .5 more minutes until resuming")
+    sleep(30)
+    print("resuming")
     if float(pullandprocess.returnLatestRsi(timeframeofdata, symbol, datalimit).strip("\n")) > float(lowerthanrsi):
         print("RSI value has been met, selling at yesterdays close price")
         priceAtClose = pullandprocess.returnClosingVal(timeframeofdata, symbol, datalimit).strip("\n")
@@ -77,6 +101,6 @@ while True:
 	# thing to run
     makelimitorderiflowrsi('1D', 'SPY', '300', '1', '35', 'day', '1.03')
     
-    makelimitorderiflowrsi('1Min', 'SPY', '300', '1', '35', 'day', '1.016')
+    #makelimitorderiflowrsi('1Min', 'SPY', '300', '1', '35', 'day', '1.016')
     #sleep(30)
 
