@@ -17,10 +17,12 @@ def pullData(timeframe, symbols, limit):
         #print(data['symbol'])
         f.write('Date,Open,High,Low,Close,Volume,OpenInterest\n')
         for bar in data[symbol]:
-            t = datetime.fromtimestamp(bar['t'])
-            day = t.strftime('%Y-%m-%d')
-
-            line = '{},{},{},{},{},{},{}\n'.format(day, bar['o'], bar['h'], bar['l'], bar['c'], bar['v'], 0 )
+            #t = datetime.fromtimestamp(bar['t'])
+            #day = t.strftime('%Y-%m-%d')
+            #print(bar['o'])
+            line = '{},{},{},{},{},{},{}\n'.format(bar['t'], bar['o'], bar['h'], bar['l'], bar['c'], bar['v'], 0 )
+            #line = '{},{},{},{},{},{},{}\n'.format(bar[1], bar[2], bar[3], bar[4], bar[5], bar[6], 0 )
+            #line = '{},{},{},{},{},{},{}\n'.format(bar[0], bar[1], bar[2], bar[3], bar[4], bar[5], 0 )
             f.write(line)
     #f.write(data[symbol])
 

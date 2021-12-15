@@ -34,13 +34,7 @@ def create_order_limit(symbol, qty, side, type, time_in_force,limit_price):
 
 
 def makelimitorderiflowrsi(timeframeofdata, symbol, datalimit, amount, lowerthanrsi, ordergoodfor, profitpercentage):
-
-    #rsivalueString = (pullandprocess.returnLatestRsi(timeframeofdata, symbol, datalimit))
-    #rsivalue = float(rsivalueString)
-    print("attempting to buy {} {} stock, and gain at least {} percent, rsi value is ".format(amount, symbol, profitpercentage))
-
     print("attempting to buy {} {} stock, and gain at least {} percent".format(amount, symbol, profitpercentage))
-
     if float(pullandprocess.returnLatestRsi(timeframeofdata, symbol, datalimit).strip("\n")) < float(lowerthanrsi):
         price = pullandprocess.returnClosingVal(timeframeofdata, symbol, datalimit).strip("\n")
         #print(price)
@@ -75,8 +69,6 @@ def makeLimitOrderIfRSIUp(timeframeofdata, symbol, datalimit, amount, lowerthanr
 while True:
     
 	# thing to run
-    makelimitorderiflowrsi('1D', 'SPY', '300', '1', '35', 'day', '1.03')
-    
     makelimitorderiflowrsi('1Min', 'SPY', '300', '1', '35', 'day', '1.016')
-    #sleep(30)
+    sleep(30)
 
