@@ -34,9 +34,13 @@ def create_order_limit(symbol, qty, side, type, time_in_force,limit_price):
 
 
 def makelimitorderiflowrsi(timeframeofdata, symbol, datalimit, amount, lowerthanrsi, ordergoodfor, profitpercentage):
+<<<<<<< HEAD
     #rsivalueString = (pullandprocess.returnLatestRsi(timeframeofdata, symbol, datalimit))
     #rsivalue = float(rsivalueString)
     print("attempting to buy {} {} stock, and gain at least {} percent, rsi value is ".format(amount, symbol, profitpercentage))
+=======
+    print("attempting to buy {} {} stock, and gain at least {} percent".format(amount, symbol, profitpercentage))
+>>>>>>> parent of bc7625a (Update rsiBS_SPY.py)
     if float(pullandprocess.returnLatestRsi(timeframeofdata, symbol, datalimit).strip("\n")) < float(lowerthanrsi):
         price = pullandprocess.returnClosingVal(timeframeofdata, symbol, datalimit).strip("\n")
         #print(price)
@@ -79,12 +83,12 @@ def makeLimitOrderIfRSIUp(timeframeofdata, symbol, datalimit, amount, lowerthanr
     sleep(30)
     print("resuming")
     if float(pullandprocess.returnLatestRsi(timeframeofdata, symbol, datalimit).strip("\n")) > float(lowerthanrsi):
-        print("RSI value of {} has been met, selling at yesterdays close price".format(pullandprocess.returnLatestRsi(timeframeofdata, symbol, datalimit).strip("\n")))
+        print("RSI value has been met, selling at yesterdays close price")
         priceAtClose = pullandprocess.returnClosingVal(timeframeofdata, symbol, datalimit).strip("\n")
         create_order_limit(symbol, amount, 'sell', 'limit', 'day', '{}'.format(priceAtClose))
         print("Selling {} of {}, type {} {} {} at {}".format(amount, symbol, 'limit', 'sell', ordergoodfor, priceAtClose))
     else:
-        print("RSI value to sell has not been met, taking {}% profit for the day".format(profitpercentage))
+        print("RSI value to sell has not been met, taking 1.6% profit for the day")
         priceAtClose = pullandprocess.returnClosingVal(timeframeofdata, symbol, datalimit).strip("\n")
         priceToSell = float(priceAtClose) * float(profitpercentage)
         #print(price)
