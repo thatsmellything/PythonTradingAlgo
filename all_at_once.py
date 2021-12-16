@@ -90,6 +90,7 @@ def get_indicators(symbol):
     
     
     df['sma'] = sma.df
+    rsi = btalib.rsi(df)
     df['rsi'] = rsi.df
     #df['macd'] = macd.df
     
@@ -127,7 +128,7 @@ def get_rsi(symbol):
     date, open_value, high_value, low_value, closing_value, volume, sma, rsi  = get_last_entry(symbol).split(',')
     print("RSI value of {} is {}".format(symbol, rsi))
     return rsi
-get_rsi('SPY')
+#get_rsi('SPY')
 ###GET Closing Value###
 def get_closing_value(symbol):
     date, open_value, high_value, low_value, closing_value, volume, sma, rsi  = get_last_entry(symbol).split(',')
@@ -195,7 +196,10 @@ def create_limit_order(symbol, qty, side, type, time_in_force, limit_price):
 ###CHECK RSI LEVELS AND SELL ORDER IF ABOVE THRESHOLD###
 def make_limit_sell_order_if_rsi_high(symbol, amount, rsi_value, profit_percentage):
     order_good_for = 'gtc'
-    sleep(300) #wait 5 minutes
+    ##print countdown timer of 5 min by 30 second intervals
+    for i in range(1,6):
+        print(i)
+        sleep(30)
     print('Checking if RSI is higher than {} on ticker {}'.format(rsi_value, symbol))
     if float(get_rsi(symbol).strip("\n")) > float(rsi_value):
         print("RSI value has been met, selling at yesterdays close price")
@@ -205,7 +209,7 @@ def make_limit_sell_order_if_rsi_high(symbol, amount, rsi_value, profit_percenta
     else:
         print("RSI value to sell has not been met, taking {}% profit for the day".format(profit_percentage))
         price_at_close = get_closing_value(symbol).strip("\n")
-        price_to_sell = float(price_at_close) * float(profit_percentage)
+        price_to_sell = float(price_at_close) * (1.01 * float(profit_percentage))
         #print(price)
         create_limit_order(symbol, amount, 'sell', 'limit', 'gtc', '{}'.format(price_to_sell))
         print("Selling {} of {}, type {} {} {} at {}".format(amount, symbol, 'limit', 'sell', order_good_for, price_to_sell))
@@ -251,7 +255,6 @@ def run():
         sleep(30)
     else:
         print("Not trading hours")
-        sleep(300)
         run()
 
 ### GET INPUT ARGS FROM USER###
