@@ -232,7 +232,7 @@ def make_limit_buy_order_if_low_rsi(symbol, amount, low_rsi_value, high_rsi_valu
        
     else:
 
-        print("RSI value is not below {}, not buying any stocks".format(low_rsi_value))
+        print("RSI value is not below {}, not buying any stocks\n".format(low_rsi_value))
 #make_limit_buy_order_if_low_rsi('SPY', 1, '35')
 
 
@@ -248,7 +248,7 @@ def loop_me(data_timeframe, symbol, data_size, order_amount, low_rsi_value, high
 def run():
     while check_trading_hours() == True:
         loop_me(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5], sys.argv[6], sys.argv[7])
-        sleep(20)
+        sleep(30)
     else:
         print("Not trading hours")
         sleep(300)
