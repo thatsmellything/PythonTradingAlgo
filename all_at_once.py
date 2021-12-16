@@ -6,6 +6,8 @@ from config import *
 import btalib
 import pandas as pd
 from time import time, sleep
+import sys
+
 
 ###FIRST PRINT ACCOUNT INFO TO MAKE SURE WE HAVE A CONNECTION###
 def print_account_information():
@@ -28,10 +30,10 @@ def check_trading_hours():
     api = tradeapi.REST(api_key, api_secret, base_url, api_version='v2')
     clock = api.get_clock()
     if clock.is_open:
-        print('Market is open.')
+        #print('Market is open.')
         return True
     else:
-        print('Market is closed.')
+        #print('Market is closed.')
         return False
 check_trading_hours()
 
@@ -207,43 +209,54 @@ def make_limit_sell_order_if_rsi_high(symbol, amount, rsi_value, profit_percenta
 #makeLimitOrderIfRSIUp('1D', 'CLSK', '1000', '100', '45', 'day')
 
 ###CHECK RSI LEVELS AND BUY ORDER IF BELOW THRESHOLD###
-def make_limit_buy_order_if_low_rsi(symbol, amount, rsi_value):
+def make_limit_buy_order_if_low_rsi(symbol, amount, low_rsi_value, high_rsi_value, profit_percentage):
     order_good_for = 'day'
     #rsivalueString = (pullandprocess.returnLatestRsi(timeframeofdata, symbol, datalimit))
     #rsivalue = float(rsivalueString)
     #print("attempting to buy {} {} stock, and gain at least {} percent, rsi value is ".format(amount, symbol, profitpercentage))
 
     #print("attempting to buy {} {} stock, and gain at least {} percent".format(amount, symbol, profitpercentage))
-    print('Checking if RSI is lower than {} on ticker {}'.format(rsi_value, symbol))
-    if float(get_rsi(symbol).strip("\n")) < float(rsi_value):
+    print('Checking if RSI is lower than {} on ticker {}'.format(low_rsi_value, symbol))
+    if float(get_rsi(symbol).strip("\n")) < float(low_rsi_value):
         price = get_closing_value(symbol).strip("\n")
         print(price)
         create_limit_order(symbol, amount, 'buy', 'limit', order_good_for, '{}'.format(price))
         
         print("Buying {} of {}, type {} {} {} at {}".format(amount, symbol, 'limit', 'buy', order_good_for, price))
-        profit_percentage = 1.06
-        make_limit_sell_order_if_rsi_high(symbol, amount, '{}'.format(float(rsi_value) +10), '{}'.format(profit_percentage))
+        profit_percentage = 1 + float(profit_percentage)
+        make_limit_sell_order_if_rsi_high(symbol, amount, high_rsi_value, '{}'.format(profit_percentage))
 
        
     else:
 
-        print("RSI value is not below {}, not buying any stocks".format(rsi_value))
+        print("RSI value is not below {}, not buying any stocks".format(low_rsi_value))
 #make_limit_buy_order_if_low_rsi('SPY', 1, '35')
 
 
 
+###FUNCTION TO LOOP###
+def loop_me(data_timeframe, symbol, data_size, order_amount, low_rsi_value, high_rsi_value, profit_percentage):
+    pull_data(data_timeframe, symbol, data_size)
+    get_indicators(symbol)
+    make_limit_buy_order_if_low_rsi(symbol, order_amount, low_rsi_value, high_rsi_value, profit_percentage)
 
-def loop_me():
-    pull_data('1Min', 'SPY', '100')
-    get_indicators('SPY')
-    make_limit_buy_order_if_low_rsi('SPY', 1, '35')
 
-
+###MAIN###
 def run():
     while check_trading_hours() == True:
-        loop_me()
+        loop_me(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5], sys.argv[6], sys.argv[7])
         sleep(30)
     else:
+        print("Not trading hours")
         sleep(30)
         run()
-run()
+
+### GET INPUT ARGS FROM USER###
+print("Order of arguments is: data timeframe, symbol, data size, order amount, low rsi value, high rsi value, profit percentage (6 would be a 6 percent gain)")
+list_of_arguments = sys.argv
+if len(list_of_arguments) == 8:
+    run()
+else:
+    print("Not enough arguments or too many, please try again")
+    print("Order of arguments is: data timeframe, symbol, data size, order amount, low rsi value, high rsi value, profit percentage (6 would be a 6 percent gain)")
+
