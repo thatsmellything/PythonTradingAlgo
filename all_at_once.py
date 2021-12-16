@@ -11,6 +11,8 @@ import sys
 
 ###FIRST PRINT ACCOUNT INFO TO MAKE SURE WE HAVE A CONNECTION###
 def print_account_information():
+    print('\n')
+    print('Account Information:')
     base_url = 'https://paper-api.alpaca.markets'
     api = tradeapi.REST(api_key, api_secret, base_url, api_version='v2')
     # Get our account information.
@@ -35,7 +37,7 @@ def check_trading_hours():
     else:
         #print('Market is closed.')
         return False
-check_trading_hours()
+#check_trading_hours()
 
 
 
@@ -193,6 +195,7 @@ def create_limit_order(symbol, qty, side, type, time_in_force, limit_price):
 ###CHECK RSI LEVELS AND SELL ORDER IF ABOVE THRESHOLD###
 def make_limit_sell_order_if_rsi_high(symbol, amount, rsi_value, profit_percentage):
     order_good_for = 'gtc'
+    sleep(300) #wait 5 minutes
     print('Checking if RSI is higher than {} on ticker {}'.format(rsi_value, symbol))
     if float(get_rsi(symbol).strip("\n")) > float(rsi_value):
         print("RSI value has been met, selling at yesterdays close price")
@@ -248,7 +251,7 @@ def run():
         sleep(30)
     else:
         print("Not trading hours")
-        sleep(30)
+        sleep(300)
         run()
 
 ### GET INPUT ARGS FROM USER###
