@@ -5,6 +5,7 @@ import alpaca_trade_api as tradeapi
 from config import *
 import btalib
 import pandas as pd
+from time import time, sleep
 
 ###FIRST PRINT ACCOUNT INFO TO MAKE SURE WE HAVE A CONNECTION###
 def print_account_information():
@@ -88,7 +89,7 @@ def get_indicators(symbol):
     df['rsi'] = rsi.df
     #df['macd'] = macd.df
     
-    print(df)
+    #print(df)
     df.to_csv('data/{}.csv'.format(symbol), index=True)
 
     ##THESE DO NOT WORK FOR NOW##
@@ -105,7 +106,7 @@ def get_indicators(symbol):
 
 
     return df
-get_indicators('SPY')
+#get_indicators('SPY')
 
 ###GRAB THE LAST ENTRY OF THE CSV FILE###
 def get_last_entry(symbol):
@@ -190,7 +191,7 @@ def create_limit_order(symbol, qty, side, type, time_in_force, limit_price):
 ###CHECK RSI LEVELS AND SELL ORDER IF ABOVE THRESHOLD###
 def make_limit_sell_order_if_rsi_high(symbol, amount, rsi_value, profit_percentage):
     order_good_for = 'gtc'
-    print('Checking if RSI is higher than {}'.format(rsi_value))
+    print('Checking if RSI is higher than {} on ticker {}'.format(rsi_value, symbol))
     if float(get_rsi(symbol).strip("\n")) > float(rsi_value):
         print("RSI value has been met, selling at yesterdays close price")
         price_at_close = get_closing_value.strip("\n")
@@ -213,7 +214,7 @@ def make_limit_buy_order_if_low_rsi(symbol, amount, rsi_value):
     #print("attempting to buy {} {} stock, and gain at least {} percent, rsi value is ".format(amount, symbol, profitpercentage))
 
     #print("attempting to buy {} {} stock, and gain at least {} percent".format(amount, symbol, profitpercentage))
-    print('Checking if RSI is lower than {}'.format(rsi_value))
+    print('Checking if RSI is lower than {} on ticker {}'.format(rsi_value, symbol))
     if float(get_rsi(symbol).strip("\n")) < float(rsi_value):
         price = get_closing_value(symbol).strip("\n")
         print(price)
@@ -232,5 +233,17 @@ def make_limit_buy_order_if_low_rsi(symbol, amount, rsi_value):
 
 
 
-def start_program():
-    print('test')
+def loop_me():
+    pull_data('1Min', 'SPY', '100')
+    get_indicators('SPY')
+    make_limit_buy_order_if_low_rsi('SPY', 1, '35')
+
+
+def run():
+    while check_trading_hours() == True:
+        loop_me()
+        sleep(30)
+    else:
+        sleep(30)
+        run()
+run()
