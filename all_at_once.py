@@ -194,7 +194,7 @@ def create_limit_order(symbol, qty, side, type, time_in_force, limit_price):
     return json.loads(r.content)
 
 ###CHECK RSI LEVELS AND SELL ORDER IF ABOVE THRESHOLD###
-def make_limit_sell_order_if_rsi_high(symbol, amount, rsi_value, profit_percentage):
+def make_limit_sell_order_if_rsi_high(symbol, amount, rsi_value, profit_percentage, buy_price):
     order_good_for = 'gtc'
     ##print countdown timer of 5 min by 30 second intervals
     for i in range(1,6):
@@ -209,7 +209,7 @@ def make_limit_sell_order_if_rsi_high(symbol, amount, rsi_value, profit_percenta
     else:
         print("RSI value to sell has not been met, taking {}% profit for the day".format(profit_percentage))
         price_at_close = get_closing_value(symbol).strip("\n")
-        price_to_sell = float(price_at_close) * (1.01 * float(profit_percentage))
+        price_to_sell = float(buy_price) * (float('1.0'+ profit_percentage))
         #print(price)
         create_limit_order(symbol, amount, 'sell', 'limit', 'gtc', '{}'.format(price_to_sell))
         print("Selling {} of {}, type {} {} {} at {}".format(amount, symbol, 'limit', 'sell', order_good_for, price_to_sell))
@@ -217,7 +217,7 @@ def make_limit_sell_order_if_rsi_high(symbol, amount, rsi_value, profit_percenta
 
 ###CHECK RSI LEVELS AND BUY ORDER IF BELOW THRESHOLD###
 def make_limit_buy_order_if_low_rsi(symbol, amount, low_rsi_value, high_rsi_value, profit_percentage):
-    order_good_for = 'day'
+    order_good_for = 'ioc'
     #rsivalueString = (pullandprocess.returnLatestRsi(timeframeofdata, symbol, datalimit))
     #rsivalue = float(rsivalueString)
     #print("attempting to buy {} {} stock, and gain at least {} percent, rsi value is ".format(amount, symbol, profitpercentage))
@@ -229,9 +229,9 @@ def make_limit_buy_order_if_low_rsi(symbol, amount, low_rsi_value, high_rsi_valu
         print(price)
         create_limit_order(symbol, amount, 'buy', 'limit', order_good_for, '{}'.format(price))
         
-        print("Buying {} of {}, type {} {} {} at {}".format(amount, symbol, 'limit', 'buy', order_good_for, price))
-        profit_percentage = 1 + float(profit_percentage)
-        make_limit_sell_order_if_rsi_high(symbol, amount, high_rsi_value, '{}'.format(profit_percentage))
+        print("Buying {} of {}, type {} {} at {}".format(amount, symbol, 'limit', order_good_for, price))
+        #profit_percentage = 1 + float(profit_percentage)
+        make_limit_sell_order_if_rsi_high(symbol, amount, high_rsi_value, '{}'.format(profit_percentage), price)
 
        
     else:
