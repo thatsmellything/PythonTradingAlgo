@@ -125,7 +125,7 @@ def get_last_entry(symbol):
 ###GET RSI###
 def get_rsi(symbol):
     date, open_value, high_value, low_value, closing_value, volume, sma, rsi  = get_last_entry(symbol).split(',')
-    #print(rsi)
+    print("RSI value of {} is {}".format(symbol, rsi))
     return rsi
 get_rsi('SPY')
 ###GET Closing Value###
@@ -248,7 +248,7 @@ def loop_me(data_timeframe, symbol, data_size, order_amount, low_rsi_value, high
 def run():
     while check_trading_hours() == True:
         loop_me(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5], sys.argv[6], sys.argv[7])
-        sleep(30)
+        sleep(20)
     else:
         print("Not trading hours")
         sleep(300)
