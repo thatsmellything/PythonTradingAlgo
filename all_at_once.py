@@ -126,7 +126,7 @@ def get_last_entry(symbol):
 ###GET RSI###
 def get_rsi(symbol):
     date, open_value, high_value, low_value, closing_value, volume, sma, rsi  = get_last_entry(symbol).split(',')
-    print("RSI value of {} is {}".format(symbol, rsi))
+    print("RSI value of {} is {}".format(symbol, rsi.strip("\n")))
     return rsi
 #get_rsi('SPY')
 ###GET Closing Value###
