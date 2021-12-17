@@ -224,7 +224,7 @@ def make_limit_buy_order_if_low_rsi(symbol, amount, low_rsi_value, high_rsi_valu
         price = get_closing_value(symbol).strip("\n")
         print(price)
         create_limit_order(symbol, amount, 'buy', 'limit', order_good_for, '{}'.format(price))
-        price = float(price + 0.50) #add 50 cents to price to make sure it is bought
+        price = (float(price) + 0.50) #add 50 cents to price to make sure it is bought
         print("Buying {} of {}, type {} {} at {}".format(amount, symbol, 'limit', order_good_for, price))
         #profit_percentage = 1 + float(profit_percentage)
         make_limit_sell_order_if_rsi_high(symbol, amount, high_rsi_value, '{}'.format(profit_percentage), price)
