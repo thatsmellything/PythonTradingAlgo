@@ -134,43 +134,43 @@ def get_closing_value(symbol):
     date, open_value, high_value, low_value, closing_value, volume, sma, rsi  = get_last_entry(symbol).split(',')
     #print(closing_value)
     return closing_value
-get_closing_value('SPY')
+#get_closing_value('SPY')
 ###GET SMA###
 def get_sma(symbol):
     date, open_value, high_value, low_value, closing_value, volume, sma, rsi  = get_last_entry(symbol).split(',')
     #print(sma)
     return sma
-get_sma('SPY')
+#get_sma('SPY')
 ###GET Volume###
 def get_volume(symbol):
     date, open_value, high_value, low_value, closing_value, volume, sma, rsi  = get_last_entry(symbol).split(',')
     #print(volume)
     return volume
-get_volume('SPY')
+#get_volume('SPY')
 ###GET Open Value###
 def get_open_value(symbol):
     date, open_value, high_value, low_value, closing_value, volume, sma, rsi  = get_last_entry(symbol).split(',')
     #print(open_value)
     return open_value
-get_open_value('SPY')
+#get_open_value('SPY')
 ###GET High Value###
 def get_high_value(symbol):
     date, open_value, high_value, low_value, closing_value, volume, sma, rsi  = get_last_entry(symbol).split(',')
     #print(high_value)
     return high_value
-get_high_value('SPY')
+#get_high_value('SPY')
 ###GET Low Value###
 def get_low_value(symbol):
     date, open_value, high_value, low_value, closing_value, volume, sma, rsi  = get_last_entry(symbol).split(',')
     #print(low_value)
     return low_value
-get_low_value('SPY')
+#get_low_value('SPY')
 ###GET Date###
 def get_date(symbol):
     date, open_value, high_value, low_value, closing_value, volume, sma, rsi  = get_last_entry(symbol).split(',')
     #print(date)
     return date
-get_date('SPY')
+#get_date('SPY')
 
 
 
