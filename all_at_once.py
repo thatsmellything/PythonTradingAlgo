@@ -255,6 +255,7 @@ def run():
         sleep(30)
     else:
         print("Not trading hours")
+        sleep(300)
         run()
 
 ### GET INPUT ARGS FROM USER###
