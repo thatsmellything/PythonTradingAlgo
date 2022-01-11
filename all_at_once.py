@@ -202,7 +202,7 @@ def make_limit_sell_order_if_rsi_high(symbol, amount, rsi_value, profit_percenta
         sleep(30)
     print('Checking if RSI is higher than {} on ticker {}'.format(rsi_value, symbol))
     if float(get_rsi(symbol).strip("\n")) > float(rsi_value):
-        print("RSI value has been met, selling at yesterdays close price")
+        print("RSI value has been met, selling at last bars close price")
         price_at_close = get_closing_value.strip("\n")
         create_limit_order(symbol, amount, 'sell', 'limit', 'gtc', '{}'.format(price_at_close))
         print("Selling {} of {}, type {} {} {} at {}".format(amount, symbol, 'limit', 'sell', order_good_for, price_at_close))
@@ -224,7 +224,7 @@ def make_limit_buy_order_if_low_rsi(symbol, amount, low_rsi_value, high_rsi_valu
         price = get_closing_value(symbol).strip("\n")
         print(price)
         create_limit_order(symbol, amount, 'buy', 'limit', order_good_for, '{}'.format(price))
-        price = (float(price) * 1.005) #add 0.5% to price to make sure it is bought
+        price = (float(price) * 1.0025) #add 0.25% to price to make sure it is bought
         print("Buying {} of {}, type {} {} at {}".format(amount, symbol, 'limit', order_good_for, price))
         #profit_percentage = 1 + float(profit_percentage)
         make_limit_sell_order_if_rsi_high(symbol, amount, high_rsi_value, '{}'.format(profit_percentage), price)
@@ -263,3 +263,7 @@ else:
     print("Not enough arguments or too many, please try again")
     print("Order of arguments is: data timeframe, symbol, data size, order amount, low rsi value, high rsi value, profit percentage (6 would be a 6 percent gain)")
 
+
+
+
+### END OF PROGRAM###
