@@ -209,7 +209,13 @@ def make_limit_sell_order_if_rsi_high(symbol, amount, rsi_value, profit_percenta
     else:
         print("RSI value to sell has not been met, taking {}% profit for the day".format(profit_percentage))
         price_at_close = get_closing_value(symbol).strip("\n")
-        price_to_sell = float(buy_price) * (float('1.0'+ profit_percentage))
+        if float(profit_percentage) < 10:
+            profit_percentage = profit_percentage.strip(".")
+            price_to_sell = float(buy_price) * (float('1.0'+ profit_percentage))
+        else:
+            profit_percentage = profit_percentage.strip(".")
+            price_to_sell = float(buy_price) * (float('1.'+ profit_percentage))
+        
         #print(price)
         create_limit_order(symbol, amount, 'sell', 'limit', 'gtc', '{}'.format(price_to_sell))
         print("Selling {} of {}, type {} {} {} at {}".format(amount, symbol, 'limit', 'sell', order_good_for, price_to_sell))
