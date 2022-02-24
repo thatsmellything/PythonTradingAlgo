@@ -1,2 +1,2 @@
 python3 all_at_once.py timeframe ticker amount low_rsi high_rsi backup_percentage_sell
-python3 all_at_once.py 1Min SPY 1000 1 37 45 1
+python3 all_at_once.py 1Min SPY 1000 1 35 45 1
