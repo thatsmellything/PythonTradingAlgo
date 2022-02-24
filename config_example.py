@@ -1,3 +1,4 @@
+#Make a config.py file that has all of this information in it otherwise it will not work
 API_KEY = "INSERT YOUR API KEY HERE"
 API_KEY_ID = API_KEY
 SECRET_KEY = "INSERT YOUR SECRET KEY HERE"
