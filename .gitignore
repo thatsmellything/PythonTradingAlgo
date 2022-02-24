@@ -1,3 +1,5 @@
 /data/*.txt
 /data/*.csv
 config.py
+config.json
+config.py
